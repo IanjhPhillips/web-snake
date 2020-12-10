@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import P5Wrapper from 'react-p5-wrapper';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import sketch from './components/sketch.js';
+
+
+
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.score = this.score.bind(this)
+    this.state = {
+      score: 0,
+    };
+  };
+
+  score (s) {
+    this.setState({score: s})
+  }
+
+  render() {
+    return (
+      <div>
+        <P5Wrapper
+          sketch={sketch}
+          getCoords={(s) => this.score}
+        />
+        <p>Score = {this.state.score}</p>
+      </div>
+    )
+  }
 }
-
-export default App;
